@@ -1,0 +1,16 @@
+<form [formGroup]="userSearchForm" (ngSubmit)="search()">
+  <mat-form-field appearance="fill">
+    <mat-label>target user email</mat-label>
+    <input matInput formControlName="email">
+
+    <mat-error *ngIf="userSearchForm.controls['email'].hasError('email') && !userSearchForm.controls['email'].hasError('required')">
+      Please enter a valid email address
+    </mat-error>
+
+    <mat-error *ngIf="userSearchForm.controls['email'].hasError('required')">
+      Email is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <button type="submit" mat-raised-button color="primary">search</button>
+</form>
