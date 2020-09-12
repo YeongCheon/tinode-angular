@@ -11,7 +11,7 @@ const routes: Routes = [
   },
   { path: 'signin', component: SignInComponent },
   { path: 'chat-list', component: ChatRoomListComponent },
-  { path: 'chat-detail', component: ChatDetailComponent },
+  { path: 'chat-detail/:id', component: ChatDetailComponent },
 ];
 
 @NgModule({

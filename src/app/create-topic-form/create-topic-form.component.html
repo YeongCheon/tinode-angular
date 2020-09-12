@@ -1,16 +1,17 @@
-<form [formGroup]="userSearchForm" (ngSubmit)="search()">
+<h3>create new Group Topic</h3>
+<form [formGroup]="userSearchForm" (ngSubmit)="create()">
   <mat-form-field appearance="fill">
-    <mat-label>target user email</mat-label>
-    <input matInput formControlName="email">
+    <mat-label>group topic name</mat-label>
+    <input matInput formControlName="name">
 
-    <mat-error *ngIf="userSearchForm.controls['email'].hasError('email') && !userSearchForm.controls['email'].hasError('required')">
-      Please enter a valid email address
-    </mat-error>
+    <!-- <mat-error *ngIf="userSearchForm.controls['name'].hasError('name') && !userSearchForm.controls['name'].hasError('required')">
+         Please enter a valid name address
+         </mat-error> -->
 
-    <mat-error *ngIf="userSearchForm.controls['email'].hasError('required')">
-      Email is <strong>required</strong>
+    <mat-error *ngIf="userSearchForm.controls['name'].hasError('required')">
+      Name is <strong>required</strong>
     </mat-error>
   </mat-form-field>
 
-  <button type="submit" mat-raised-button color="primary">search</button>
+  <button type="submit" mat-raised-button color="primary">create</button>
 </form>

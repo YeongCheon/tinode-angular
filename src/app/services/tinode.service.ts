@@ -14,12 +14,32 @@ export class TinodeService {
 
   constructor() {
     this.tinode = new Tinode(`${environment.tinode.appName}`, `${environment.tinode.addr}:${environment.tinode.port}`, `${environment.tinode.apiKey}`, null, false);
-    this.tinode.enableLogging(true);
+    this.tinode.enableLogging(false);
     // this.tinodeConnect = this.tinode.connect();
   }
 
-  getMeTopic(): Promise<any> {
+  getMeTopic(): any { // return MeTopic Object
     return this.tinode.getMeTopic();
+  }
+
+  getCurrentUserID(): string {
+    return this.tinode.getCurrentUserID();
+  }
+
+  getCurrentLogin(): string {
+    return this.tinode.getCurrentLogin();
+  }
+
+  newGroupTopicName(): string {
+    return this.tinode.newGroupTopicName();
+  }
+
+  getAuthToken(): string { // for keep login
+    return this.tinode.getAuthToken();
+  }
+
+  newTopic(): any {
+    return this.tinode.newTopic((result) => { console.log(result); });
   }
 
   searchUser(email: string) {
@@ -46,10 +66,20 @@ export class TinodeService {
     // });
   }
 
-  login(jwtToken: string): Promise<any> {
+  createUser(jwtToken: string) {
     return this.tinode.connect().then(() => {
-      return this.tinode.login('firebase', btoa(jwtToken))
+      return this.tinode.createAccount('firebase', btoa(jwtToken), true)
     });
+  }
+
+  async login(jwtToken: string): Promise<any> {
+    await this.tinode.connect();
+    return this.tinode.login('firebase', btoa(jwtToken));
+
+    // return .then(() => {
+    //   this.tinodeConnect = this.tinode.login('firebase', btoa(jwtToken));
+    //   return this.tinodeConnect;
+    // });
 
     // return this.tinode.login(
     //   'firebase',
@@ -58,18 +88,31 @@ export class TinodeService {
     // );
   }
 
-  getTopic(topicPublicName: string) {
-    this.tinode.startMetaQuery();
-    return this.tinode.subscribe()
+  getTopic(topicName: string) {
+    return this.tinode.getTopic(topicName);
   }
 
   setTopicTag(topicName: string, tags: string[]) {
     return this.tinode.setMeta(topicName, { tags: tags })
   }
 
-  createTopic() {
+  createMessage(topic: any, data: any, noEcho: boolean): any {
+    return this.tinode.createMessage(topic, data, noEcho);
+  }
+
+  publish(topic: string, data: any, noEcho: boolean): Promise<any> {
+    return this.tinode.publish(topic, data, noEcho);
+  }
+
+  publishMessage(pub: any): Promise<any> {
+    return this.tinode.publishMessage(pub);
+  }
+
+
+
+  createNewGroupTopic() {
     return this.tinode.subscribe(
-      'new', // Tinode.TOPIC_NEW
+      this.newGroupTopicName(),
       null,
       {
         desc: {
@@ -84,11 +127,5 @@ export class TinodeService {
         }
       }
     );
-  }
-
-  createUser(jwtToken: string) {
-    return this.tinode.connect().then(() => {
-      return this.tinode.createAccount('firebase', btoa(jwtToken), true)
-    });
   }
 }

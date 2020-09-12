@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CreateTopicFormComponent } from '../create-topic-form/create-topic-form.component';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { TinodeService } from '../services/tinode.service';
 
 @Component({
   selector: 'app-chat-room-list',
@@ -13,10 +14,18 @@ export class ChatRoomListComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private tinodeService: TinodeService
   ) { }
 
   ngOnInit(): void {
+    const meTopic: any = this.tinodeService.getMeTopic();
+    meTopic.onSubsUpdated = (subsUpdated: any[]) => {
+      this.list = subsUpdated;
+    };
+  }
+
+  addTagsToMeTopic() {
   }
 
   openCreateTopicFormDialog() {

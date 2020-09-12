@@ -1,1 +1,16 @@
-<p>chat-detail works!</p>
+<ul>
+  <li *ngFor="let message of messageList">{{ message.noecho ? 'me' : message.from }}: {{message.content}}</li>
+</ul>
+
+<button type="button" mat-button color="accent" (click)="loadMore()">loadMore</button>
+
+<form [formGroup]="messageForm" (ngSubmit)="sendMessage()">
+  <mat-form-field appearance="fill">
+    <mat-label>message</mat-label>
+    <input matInput formControlName="message">
+    <mat-error *ngIf="messageForm.controls['message'].hasError('required')">
+      message is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <button type="submit" mat-raised-button color="primary">create</button>
+</form>

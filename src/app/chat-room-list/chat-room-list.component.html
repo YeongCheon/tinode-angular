@@ -1,5 +1,7 @@
+<button (click)="addTagsToMeTopic()" mat-button color="accent" aria-label="add chat">add tag</button>
+
 <ul>
-  <li *ngFor="let room of list">WTF</li>
+  <li *ngFor="let room of list"><a [routerLink]="['/','chat-detail',room]">{{room}}</a></li>
 </ul>
 
 <button (click)="openCreateTopicFormDialog()" class="btn-add" mat-fab color="primary" aria-label="add chat">+</button>

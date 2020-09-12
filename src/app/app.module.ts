@@ -15,6 +15,7 @@ import { ChatRoomListComponent } from './chat-room-list/chat-room-list.component
 import { SignInComponent } from './sign-in/sign-in.component';
 import { CreateTopicFormComponent } from './create-topic-form/create-topic-form.component';
 import { ChatDetailComponent } from './chat-detail/chat-detail.component';
+import { NgxsModule } from '@ngxs/store';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,9 @@ import { ChatDetailComponent } from './chat-detail/chat-detail.component';
     MatButtonModule,
     MatDialogModule,
     AngularFireModule.initializeApp(environment.firebase),
+    NgxsModule.forRoot([], {
+      developmentMode: !environment.production
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

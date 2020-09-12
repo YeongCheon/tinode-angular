@@ -17,8 +17,7 @@ export class CreateTopicFormComponent implements OnInit {
     private tinodeService: TinodeService,
   ) {
     this.userSearchForm = this.formBuilder.group({
-      email: ['', [
-        Validators.email,
+      name: ['', [
         Validators.required,
       ]],
     });
@@ -28,8 +27,16 @@ export class CreateTopicFormComponent implements OnInit {
 
   }
 
-  search() {
-    this.tinodeService.login
-  }
+  create() {
+    const name = 'name';
+    const topic = this.tinodeService.createNewGroupTopic();
+    console.log(topic);
 
+    // if (this.userSearchForm.valid) {
+    //   console.log(this.userSearchForm.get('name').value);
+
+    //   const groupTopicName = this.tinodeService.newGroupTopicName();
+
+    // }
+  }
 }
